@@ -1,3 +1,4 @@
+"use client"
 import KanbanBoard from "@/components/board";
 import KanbanColumn from "@/components/column";
 import KanbanItem from "@/components/item";
