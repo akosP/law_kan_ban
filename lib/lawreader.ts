@@ -3,8 +3,8 @@ interface Sag {
     id: number;
     typeid: number;
     periodeid: number;
-    titel: string;
     statusid: number;
+    titel: string;
     // [key: string]: any; // To account for other properties in the response
   }
 

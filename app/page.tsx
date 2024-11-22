@@ -1,48 +1,39 @@
 import KanbanBoard from "@/components/board";
 import KanbanColumn from "@/components/column";
 import { KanbanItem } from "@/components/item";
-import { fetchAndFilterData } from "@/lib/lawreader";
 import prisma from "@/lib/prisma";
 import React from 'react'
 
-async function test() {
-  // await prisma.law.create({
-  //   data: {id: 3, typeid: 3,
-  //   periodeid: 3,
-  //   titel: 'asd'}})
-  const laws = await prisma.law.findMany();
+interface Sag {
+  id: number;
+  typeid: number;
+  periodeid: number;
+  statusid: number;
+  titel: string;
+  // [key: string]: any; // To account for other properties in the response
+}
+
+async function getLaws() {
+  const laws : Sag[] = await prisma.law.findMany();
   return laws;
 }
 
 export default async function Home() {
-  const laws = await test();
-  // console.log(laws);
-  const status = [... new Set(laws.map(x=>x.typeid))]
-  const lawsByStatus = laws.filter(law =>law.typeid==5)
-  // console.log(laws)
-  // const lawStatus = React.useMemo(() => {
-
-  //   // prepare unassigned stage
-  //   const grouped = laws.map((law) => ({
-  //     ...law,
-  //     laws: laws.filter((law) => law.statusid?.toString() === stage.id),
-  //   }));
-
-  //   return {
-  //     columns: grouped,
-  //   };
-  // }, [tasks, stages]);
-// console.log(lawsByStatus.map(x=>x))
+  const laws = await getLaws();
+  console.log(laws)
+  const status: number[] = [... new Set(laws?.map((x: Sag)=>x.typeid))]
+  
   return (
     <div className="h-screen w-full bg-neutral-900 text-neutral-50">
       <KanbanBoard>
-         {status?.map((s) => {
+         {status?.map((s:number) => {
               return (
                 <KanbanColumn
-                key={s}
+                key={s.toString()}
                 status={s}
+                count={laws.filter((law:Sag) =>law.typeid==s).length}
                  >
-                 {laws.filter(law =>law.typeid==s)?.map((l) => {
+                 {laws.filter((law:Sag) =>law.typeid==s)?.map((l:Sag) => {
               return (
                 <KanbanItem
                 key={l.id}

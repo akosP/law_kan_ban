@@ -2,16 +2,17 @@ import React from 'react'
 
 type Props = {
     status: number;
+    count: number;
   };
 
-const KanbanColumn = ({children,status}: React.PropsWithChildren<Props>) => {
+const KanbanColumn = ({children,status,count}: React.PropsWithChildren<Props>) => {
 
     return (
     <div className="w-56 shrink-0">
       <div className="mb-3 flex items-center justify-between">
         <h3 className={`font-medium `}>Status Id: {status} </h3>
         <span className="rounded-lg w-10 bg-neutral-950 text-sm text-neutral-700 text-center">
-          {children?.length}
+          {count}
         </span>
       </div>
       <div

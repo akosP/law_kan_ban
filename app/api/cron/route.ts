@@ -1,4 +1,3 @@
-import cron from "node-cron";
 import prisma from "@/lib/prisma";
 import { fetchAndFilterData } from "@/lib/lawreader";
 
@@ -25,8 +24,6 @@ export async function GET(request: Request) {
             periodeid: item.periodeid,
             statusid: item.kategoriid,
             titel: item.titel,
-            titelkort: item.titelkort,
-            lovnummer: item.lovnummer,
         },
         create: {
           id: item.id,
@@ -45,9 +42,3 @@ export async function GET(request: Request) {
     await prisma.$disconnect();
   }
 };
-
-// Schedule the cron job (every hour)
-cron.schedule("0 * * * *", () => {
-  console.log("Running scheduled database update...");
-  updateDatabase();
-});
