@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 import { fetchAndFilterData } from "@/lib/lawreader";
 
-
 // Function to update the database
 export async function GET(request: Request) {
   try {
@@ -17,14 +16,14 @@ export async function GET(request: Request) {
 
     // Update or insert data into the database
     for (const item of filteredData) {
-      console.log(item.id)
+      console.log(item.id);
       await prisma.law.upsert({
-        where: { id: item.id},
+        where: { id: item.id },
         update: {
-            typeid: item.typeid,
-            periodeid: item.periodeid,
-            statusid: item.kategoriid,
-            titel: item.titel,
+          typeid: item.typeid,
+          periodeid: item.periodeid,
+          statusid: item.kategoriid,
+          titel: item.titel,
         },
         create: {
           id: item.id,
@@ -42,4 +41,4 @@ export async function GET(request: Request) {
   } finally {
     await prisma.$disconnect();
   }
-};
+}
