@@ -14,7 +14,7 @@ interface Sag {
   // [key: string]: any; // To account for other properties in the response
 }
 
-export default async function Home() {
+export default function Home() {
   const [laws, setLaws] = useState<Sag[]>([]);
   useEffect(() => {
     async function getLaws() {
