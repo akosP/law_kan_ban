@@ -5,7 +5,7 @@ type Props = {
     title: string;
   };
 
-export const KanbanItem = ({
+const KanbanItem = ({
   id,
   title,
 }: React.PropsWithChildren<Props>) => {
@@ -21,3 +21,5 @@ export const KanbanItem = ({
     </div>
   );
 };
+
+export default KanbanItem;

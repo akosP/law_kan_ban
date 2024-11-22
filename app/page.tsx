@@ -1,8 +1,8 @@
 import KanbanBoard from "@/components/board";
 import KanbanColumn from "@/components/column";
-import { KanbanItem } from "@/components/item";
+import KanbanItem from "@/components/item";
 import prisma from "@/lib/prisma";
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 
 interface Sag {
   id: number;
@@ -13,14 +13,20 @@ interface Sag {
   // [key: string]: any; // To account for other properties in the response
 }
 
-async function getLaws() {
-  const laws : Sag[] = await prisma.law.findMany();
-  return laws;
-}
-
 export default async function Home() {
-  const laws = await getLaws();
-  console.log(laws)
+  const [laws, setLaws] = useState<Sag[]>([]);
+  useEffect(() => {
+    async function getLaws() {
+      const fetchedLaws: Sag[] = await prisma.law.findMany(); // Get data from database
+      setLaws(fetchedLaws); // Update state with the fetched data
+    }
+
+    getLaws(); // Call the async function to fetch data
+
+    console.log('Hello, World!');
+    console.log('Fetched Laws:', laws); // This will log the state after it is updated
+  }, []); // Empty dependency array to run only on page load or refresh
+  
   const status: number[] = [... new Set(laws?.map((x: Sag)=>x.typeid))]
   
   return (
