@@ -17,8 +17,9 @@ export async function GET(request: Request) {
 
     // Update or insert data into the database
     for (const item of filteredData) {
+      console.log(item.id)
       await prisma.law.upsert({
-        where: { id: item.Id },
+        where: { id: item.id},
         update: {
             typeid: item.typeid,
             periodeid: item.periodeid,
