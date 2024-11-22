@@ -18,7 +18,7 @@ export default function Home() {
     fetchLaws(); // Fetch laws when the page loads
   }, []); // Empty dependency array ensures this runs on page load and refresh
 
-  const status: number[] = [...new Set(laws?.map((x: Sag) => x.typeid))];
+  const status: number[] = [...new Set(laws?.map((x: Sag) => x.statusid))];
 
   return (
     <div className="h-screen">
@@ -30,10 +30,10 @@ export default function Home() {
               <KanbanColumn
                 key={s.toString()}
                 status={s}
-                count={laws.filter((law: Sag) => law.typeid == s).length}
+                count={laws.filter((law: Sag) => law.statusid == s).length}
               >
                 {laws
-                  .filter((law: Sag) => law.typeid == s)
+                  .filter((law: Sag) => law.statusid == s)
                   ?.map((l: Sag) => {
                     return (
                       <KanbanItem
